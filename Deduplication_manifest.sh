@@ -1,6 +1,8 @@
 #!/bin/bash
+# 请将该文件放在Ext文件夹的同一层目录
+# 统计各渠道manifest文件共有的uses-permission输出到normal文件夹中
 
-#parameter  contentFormat inputFileName outputFileName
+# parameter  contentFormat inputFileName outputFileName
 function deduplication()
 {
 	contentArray=()
@@ -40,20 +42,20 @@ function deduplication()
 }
 
 
-#到ext目录下，遍历文件夹，输出渠道名
-#if 有android文件夹
-#then
-#	对manifest处理，只输出不重复的权限
-#else
-#	输出None
+# 到ext目录下，遍历文件夹，输出渠道名
+# if 有android文件夹
+# then
+# 	对manifest处理，只输出不重复的权限
+# else
+# 	输出None
 
 # 渠道列表目录
 CHANNEL_PATH=Ext/
 
 CONDITION="<uses-permission.*/>"
-LIST_MANIFEST=list_manifest.xml
+LIST_MANIFEST=normal/list_manifest.xml
 ANDROID_MANIFEST=AndroidManifest.xml
-NORMAL_MANIFEST=normal.xml
+NORMAL_MANIFEST=normal/manifest.xml
 
 android_dir_num=0
 temp="temp.xml"
@@ -63,6 +65,9 @@ if [ ! $? -eq 0 ];then
 	echo "[ERROR] Error at CHANNEL_PATH"
 	read a
 	exit 1
+fi
+if [ ! -d normal ];then
+	mkdir normal
 fi
 
 echo "---start listing info of manifest to list_manifest.xml---"
@@ -86,9 +91,17 @@ echo "---done---"
 
 # 统计有多少个android文件夹
 # 使用桶排序的思想统计每种权限出现次数，等于上述个数的即为公共权限
-echo "---start listing common content to noarmal.xml---"
+echo "---start listing common content to $NORMAL_MANIFEST---"
+
+# init输出文件uses-permission部分
+if [ -e %NORMAL_MANIFEST ];then
+	sed -i '/^<!-- uses-permission  start -->$/,/^<!-- uses-permission  end -->$/{//!d}' $NORMAL_MANIFEST
+else
+	echo "<!-- uses-permission  start -->">>$NORMAL_MANIFEST
+	echo -n "<!-- uses-permission  end -->">>$NORMAL_MANIFEST
+fi
+
 contentNum=()
-echo -n "">$NORMAL_MANIFEST
 DONE="false"
 until [ "$DONE" = "true" ]
 do read line || DONE="true"
@@ -102,7 +115,7 @@ do read line || DONE="true"
 				if [ $lineNoSpace = ${contentArray[$i]} ];then
 					contentNum[$i]=$[${contentNum[$i]}+1]
 					if [[ ${contentNum[$i]} -eq $android_dir_num ]]; then
-						echo -e "\t$line">>$NORMAL_MANIFEST
+						sed -i '/^<!-- uses-permission  end -->$/i\'"\t$line" $NORMAL_MANIFEST
 					fi
 				fi
 			done
@@ -113,5 +126,3 @@ do read line || DONE="true"
 	fi
 done < $LIST_MANIFEST
 echo "---done---"
-
-read a
