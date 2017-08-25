@@ -1,5 +1,5 @@
 #!/bin/bash
-# 请将该文件放在Ext文件夹的同一层目录
+# 请将该文件放在AndroidAutoBuild
 # 统计各渠道manifest文件共有的uses-permission输出到normal文件夹中
 
 # parameter  contentFormat inputFileName outputFileName
@@ -50,7 +50,7 @@ function deduplication()
 # 	输出None
 
 # 渠道列表目录
-CHANNEL_PATH=Ext/
+CHANNEL_PATH=../Ext/
 
 CONDITION="<uses-permission.*/>"
 LIST_MANIFEST=normal/list_manifest.xml
