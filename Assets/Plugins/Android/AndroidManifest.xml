@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.miHoYo.enterprise.NGHSoD"
+	android:installLocation="auto"
+	android:versionCode="1"
+	android:versionName="1.0">
+	<supports-screens
+		android:smallScreens="true"
+		android:normalScreens="true"
+		android:largeScreens="true"
+		android:xlargeScreens="true"
+		android:anyDensity="true"/>
+
+	<application
+		android:icon="@drawable/app_icon"
+		android:label="@string/app_name"
+		android:debuggable="true">
+		<activity android:name="com.miHoYo.overridenativeactivity.OverrideNativeActivity"
+				  android:label="@string/app_name"
+				  android:hardwareAccelerated="true"
+				  android:windowSoftInputMode="adjustResize"
+				  android:screenOrientation="sensorLandscape"
+				  android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale">
+			<meta-data android:name="android.app.lib_name" android:value="unity" />
+			<meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+
+			<!-- url schemes -->
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="my.com" android:scheme="bh3rd" />
+			</intent-filter>
+
+			<meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+		</activity>
+
+		<!-- Alipay SDK -->
+		<activity android:name="com.alipay.sdk.app.H5PayActivity"
+				  android:configChanges="orientation|keyboardHidden|navigation"
+				  android:exported="false"
+				  android:screenOrientation="behind" >
+		</activity>
+		<activity android:name="com.alipay.sdk.auth.AuthActivity"
+				  android:configChanges="orientation|keyboardHidden|navigation"
+				  android:exported="false"
+				  android:screenOrientation="behind" >
+		</activity>
+
+		<!-- WeChat SDK -->
+		<activity android:name=".wxapi.WXPayEntryActivity"
+				  android:exported="true"
+				  android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+		</activity>
+ 		<activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+             
+		<!-- Local Notification -->
+		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+
+   <activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
+   <!--Common_Compotents_Begin-->
+		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
+		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
+		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
+		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
+		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
+		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+		<receiver 
+			android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+	
+		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
+	
+		<activity
+	            android:name="com.mob.tools.MobUIShell"
+	            android:configChanges="keyboardHidden|orientation|screenSize"
+	            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+	            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <!--Common_Compotents_End-->
+	</application>
+	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="23" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<!--Common_Permissions_Begin-->
+		<uses-permission android:name="android.permission.INTERNET" />
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+		<uses-permission android:name="android.permission.VIBRATE" />
+		<uses-permission android:name="android.permission.RECORD_AUDIO" />
+		<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!--Common_Permissions_End-->
+</manifest>

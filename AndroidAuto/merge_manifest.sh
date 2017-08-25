@@ -2,31 +2,36 @@
 
 #parameter  <string>matchName
 function merge(){
+	if [ ! -d ${TARGET_PATH} ];then
+		echo "/Android directory not exist."
+		return 1
+	fi
+	if [ ! -e ${TARGET_PATH}/${ANDROID_MANIFEST} ];then
+		echo "AndroidManifest.xml not exist."
+		return 1
+	fi
+
 	echo -n "">temp.xml
 	sed -n '/<!--'"$1"'Begin-->/,/<!--'"$1"'End-->/{//!p}' $NORMAL_MANIFEST>>temp.xml
-	find . -type d -maxdepth 1 | while read channel_name
+	#原本注释之间内容删除
+	sed -i '/<!--'"$1"'Begin-->/,/<!--'"$1"'End-->/{//!d}' $TARGET_PATH/$ANDROID_MANIFEST
+
+	while read line
 	do
-		echo $channel_name
-		if [ ! -d ${channel_name}/Android ];then
-			continue
-		fi
-		sed -i '/<!--'"$1"'Begin-->/,/<!--'"$1"'End-->/{//!d}' $channel_name/Android/$ANDROID_MANIFEST
-		while read line
-		do
-	 		sed -i '/<!--'"$1"'End-->/i\'"\t$line" $channel_name/Android/$ANDROID_MANIFEST
-		done<temp.xml
-	done
+		sed -i '/<!--'"$1"'End-->/i\'"\t$line" $TARGET_PATH/$ANDROID_MANIFEST
+	done<temp.xml
 	rm -f temp.xml
 }
 
 IFS=$'\n'
-CHANNEL_PATH=../Ext/
+TARGET_PATH=../Assets/Plugins/Android
+SOURCE_PATH=../Ext
 NORMAL_MANIFEST=normal/manifest.xml
 ANDROID_MANIFEST=AndroidManifest.xml
 CONDITION_1="<!--Common_Compotents_Begin-->"
 CONDITION_2="<!--Common_Permissions_Begin-->"
 
-cd $CHANNEL_PATH
+cd $SOURCE_PATH
 while read line
 do
 	if [[ $line =~ $CONDITION_1 ]] || [[ $line =~ $CONDITION_2 ]];then
@@ -35,4 +40,3 @@ do
 		merge ${matchName}
 	fi
 done < $NORMAL_MANIFEST
-read a
