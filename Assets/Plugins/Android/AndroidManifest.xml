@@ -70,19 +70,8 @@
    <activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
    <!--Common_Compotents_Begin-->
 		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
-		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
-		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
-		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
-		<activity android:name="tieba.baidu.com.tiebasharesdk.TbShareWebviewActivity"></activity>
 		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
-		<receiver 
-			android:name="com.mihoyo.localnotification.LocalNotificationManager" />
-	
-		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
-		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
-		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
-		<receiver android:name="com.mihoyo.localnotification.LocalNotificationManager" />
-	
+		
 		<activity
 	            android:name="com.mob.tools.MobUIShell"
 	            android:configChanges="keyboardHidden|orientation|screenSize"

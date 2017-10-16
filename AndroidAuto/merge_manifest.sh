@@ -7,7 +7,7 @@ function merge(){
 		return 1
 	fi
 	if [ ! -e ${TARGET_PATH}/${ANDROID_MANIFEST} ];then
-		echo "AndroidManifest.xml not exist."
+		echo "$ANDROID_MANIFEST not exist."
 		return 1
 	fi
 
@@ -25,18 +25,22 @@ function merge(){
 
 IFS=$'\n'
 TARGET_PATH=../Assets/Plugins/Android
-SOURCE_PATH=../Ext
-NORMAL_MANIFEST=normal/manifest.xml
+NORMAL_MANIFEST=CommonResource/CommonManifest.xml
 ANDROID_MANIFEST=AndroidManifest.xml
 CONDITION_1="<!--Common_Compotents_Begin-->"
 CONDITION_2="<!--Common_Permissions_Begin-->"
 
-cd $SOURCE_PATH
+cur_dir=`dirname $0`
+cd ${cur_dir}
+
+# if [ ! -e $NORMAL_MANIFEST ];then
+# 	echo "CommonManifest.xml not exists."
+# 	return 1
+# fi
 while read line
 do
 	if [[ $line =~ $CONDITION_1 ]] || [[ $line =~ $CONDITION_2 ]];then
 		matchName=`echo $line | sed -e 's/<!--//' -e 's/Begin-->//'`
-		echo $matchName
 		merge ${matchName}
 	fi
 done < $NORMAL_MANIFEST
